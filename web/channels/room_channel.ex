@@ -5,6 +5,11 @@ defmodule Beebchat.RoomChannel do
     {:ok, socket}
   end
 
+  def handle_in("new_msg", %{"username" => username, "body" => "/penguin"}, socket) do
+    image = "<img src='http://www.penguinspirit.com/penguin/images/stories/penguin_image/little/12/397_little.jpg' style='width:200px'>"
+    broadcast! socket, "new_msg", %{username: username, body: image}
+    {:noreply, socket}
+  end
   def handle_in("new_msg", %{"username" => username, "body" => body}, socket) do
     broadcast! socket, "new_msg", %{username: username, body: body}
     {:noreply, socket}
